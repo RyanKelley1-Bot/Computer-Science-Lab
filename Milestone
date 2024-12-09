@@ -1,0 +1,9 @@
+import java.util.*;
+
+public class VocabularyAnalyzer {
+    public int uniqueWordCount(List<String> words) {
+        return new HashSet<>(words).size();
+    }
+}
+
+
