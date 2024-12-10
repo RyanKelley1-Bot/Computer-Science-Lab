@@ -1,0 +1,20 @@
+import java.util.*;
+
+public class SentimentAnalyzer {
+    private final Set<String> positiveWords;
+    private final Set<String> negativeWords;
+
+    public SentimentAnalyzer(Set<String> positiveWords, Set<String> negativeWords) {
+        this.positiveWords = positiveWords;
+        this.negativeWords = negativeWords;
+    }
+
+    public String analyzeSentiment(List<String> words) {
+        int positiveCount = 0, negativeCount = 0;
+        for (String word : words) {
+            if (positiveWords.contains(word)) positiveCount++;
+            if (negativeWords.contains(word)) negativeCount++;
+        }
+        return positiveCount > negativeCount ? "Positive" : "Negative";
+    }
+}
