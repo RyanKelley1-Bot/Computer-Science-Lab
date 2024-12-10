@@ -1,0 +1,31 @@
+import java.util.*;
+
+public class LibraryManager {
+    private final Map<String, List<String>> topics = new HashMap<>();
+    private final FileManager fileManager = new FileManager();
+    private final TextPreprocessor textPreprocessor;
+    private final WordRanker wordRanker = new WordRanker();
+
+    public LibraryManager(Set<String> stopWords) {
+        this.textPreprocessor = new TextPreprocessor(stopWords);
+    }
+
+    public void addTopic(String topic, String directoryPath) {
+        topics.put(topic, fileManager.readFilesInDirectory(directoryPath));
+    }
+
+    public void analyzeTopic(String topic) {
+        List<String> articles = topics.get(topic);
+        if (articles == null) {
+            System.out.println("Topic not found!");
+            return;
+        }
+
+        for (String article : articles) {
+            List<String> words = textPreprocessor.tokenizeAndRemoveStopWords(article);
+            System.out.println("Word Count: " + words.size());
+            System.out.println("Statements: " + textPreprocessor.countStatements(article));
+            System.out.println("Top Words: " + wordRanker.rankWordsByFrequency(words));
+        }
+    }
+}
