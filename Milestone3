@@ -1,0 +1,32 @@
+import java.util.*;
+
+public class UserInterface {
+    private final LibraryManager libraryManager;
+
+    public UserInterface(LibraryManager libraryManager) {
+        this.libraryManager = libraryManager;
+    }
+
+    public void start() {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("1. Add Topic\n2. Analyze Topic\n3. Exit");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+            if (choice == 1) {
+                System.out.println("Enter topic name:");
+                String topic = scanner.nextLine();
+                System.out.println("Enter directory path:");
+                String path = scanner.nextLine();
+                libraryManager.addTopic(topic, path);
+            } else if (choice == 2) {
+                System.out.println("Enter topic name:");
+                String topic = scanner.nextLine();
+                libraryManager.analyzeTopic(topic);
+            } else if (choice == 3) {
+                break;
+            }
+        }
+        scanner.close();
+    }
+}
